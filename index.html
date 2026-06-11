@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Black Gold Bot – Đăng Ký Follow Bot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --gold-bright:   #FFD700;
+      --gold-mid:      #C8960C;
+      --gold-deep:     #8B6914;
+      --gold-glow:     rgba(255,215,0,0.25);
+      --black-rich:    #0A0805;
+      --black-card:    rgba(10,8,5,0.82);
+      --black-input:   rgba(255,255,255,0.05);
+      --black-border:  rgba(200,150,12,0.30);
+      --text-main:     #F5E6C0;
+      --text-muted:    rgba(245,230,192,0.55);
+      --red-error:     #FF5C5C;
+      --green-ok:      #4ADE80;
+      --radius:        14px;
+      --radius-sm:     8px;
+      --transition:    0.25s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--black-rich);
+      background-image:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,150,12,0.18) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+      background-size: cover, 300px 300px;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 16px 60px;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      text-align: center;
+      margin-bottom: 36px;
+      animation: fadeDown 0.7s ease both;
+    }
+
+    .logo-ring {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 18px;
+      position: relative;
+    }
+    .logo-ring svg {
+      width: 100%;
+      height: 100%;
+      animation: spinRing 8s linear infinite;
+      filter: drop-shadow(0 0 14px var(--gold-mid));
+    }
+    .logo-face {
+      position: absolute;
+      inset: 14px;
+      background: linear-gradient(145deg, #C8960C, #FFD700, #8B6914);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+    }
+
+    @keyframes spinRing {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .brand-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(28px, 6vw, 44px);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #8B6914 0%, #FFD700 35%, #FFF4C2 55%, #FFD700 75%, #8B6914 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s linear infinite;
+    }
+
+    @keyframes shimmer {
+      from { background-position: 200% center; }
+      to   { background-position: -200% center; }
+    }
+
+    .brand-sub {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(13px, 3vw, 16px);
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      width: 100%;
+      max-width: 480px;
+      background: var(--black-card);
+      border: 1px solid var(--black-border);
+      border-radius: var(--radius);
+      padding: 36px 32px 40px;
+      backdrop-filter: blur(18px);
+      box-shadow:
+        0 0 0 1px rgba(200,150,12,0.12),
+        0 20px 60px rgba(0,0,0,0.6),
+        inset 0 1px 0 rgba(255,215,0,0.1);
+      animation: fadeUp 0.7s 0.15s ease both;
+    }
+
+    @keyframes fadeUp   { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+    @keyframes fadeDown { from { opacity:0; transform:translateY(-16px); } to { opacity:1; transform:none; } }
+
+    .card-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--gold-bright);
+      text-align: center;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--black-border);
+      position: relative;
+    }
+    .card-title::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-bright), transparent);
+    }
+
+    /* ── FORM ── */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 7px;
+    }
+    label .req {
+      color: var(--gold-mid);
+      margin-left: 2px;
+    }
+
+    input, select {
+      width: 100%;
+      background: var(--black-input);
+      border: 1px solid var(--black-border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      -webkit-appearance: none;
+    }
+    input::placeholder { color: var(--text-muted); }
+    input:focus, select:focus {
+      border-color: var(--gold-mid);
+      box-shadow: 0 0 0 3px rgba(200,150,12,0.18);
+    }
+    input.error, select.error {
+      border-color: var(--red-error);
+      box-shadow: 0 0 0 3px rgba(255,92,92,0.15);
+    }
+    select option { background: #1a1200; color: var(--text-main); }
+
+    .field-error {
+      font-size: 12px;
+      color: var(--red-error);
+      margin-top: 5px;
+      display: none;
+    }
+    .field-error.visible { display: block; }
+
+    /* ── PASSWORD TOGGLE ── */
+    .pass-wrap { position: relative; }
+    .pass-wrap input { padding-right: 44px; }
+    .pass-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      padding: 4px;
+      transition: color var(--transition);
+    }
+    .pass-toggle:hover { color: var(--gold-bright); }
+
+    /* ── SUBMIT ── */
+    .btn-submit {
+      width: 100%;
+      margin-top: 10px;
+      padding: 14px;
+      background: linear-gradient(135deg, #8B6914 0%, #FFD700 50%, #C8960C 100%);
+      background-size: 200% 100%;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #0A0805;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: background-position var(--transition), box-shadow var(--transition), transform var(--transition);
+      box-shadow: 0 4px 20px rgba(200,150,12,0.40);
+    }
+    .btn-submit:hover:not(:disabled) {
+      background-position: 100% 0;
+      box-shadow: 0 6px 28px rgba(255,215,0,0.55);
+      transform: translateY(-1px);
+    }
+    .btn-submit:active:not(:disabled) { transform: translateY(0); }
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* ── SPINNER ── */
+    .spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(10,8,5,0.3);
+      border-top-color: #0A0805;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── TOAST ── */
+    .toast {
+      display: none;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      line-height: 1.5;
+      animation: fadeUp 0.4s ease both;
+    }
+    .toast.success {
+      display: flex;
+      background: rgba(74,222,128,0.10);
+      border: 1px solid rgba(74,222,128,0.35);
+      color: var(--green-ok);
+    }
+    .toast.error-msg {
+      display: flex;
+      background: rgba(255,92,92,0.10);
+      border: 1px solid rgba(255,92,92,0.35);
+      color: var(--red-error);
+    }
+    .toast-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 520px) {
+      .card { padding: 28px 20px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo-ring">
+      <!-- Rotating dashed ring -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="46" fill="none"
+          stroke="url(#rg)" stroke-width="3"
+          stroke-dasharray="12 6" stroke-linecap="round"/>
+        <defs>
+          <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#8B6914"/>
+            <stop offset="50%"  stop-color="#FFD700"/>
+            <stop offset="100%" stop-color="#8B6914"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="logo-face">🤖</div>
+    </div>
+    <div class="brand-name">Black Gold Bot</div>
+    <div class="brand-sub">EA Trading MT4 / MT5</div>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="card">
+    <div class="card-title">Đăng Ký Follow Bot</div>
+
+    <form id="regForm" novalidate autocomplete="off">
+
+      <!-- Họ tên -->
+      <div class="form-group">
+        <label for="fullname">Họ và tên <span class="req">*</span></label>
+        <input type="text" id="fullname" placeholder="Nguyễn Văn A" />
+        <div class="field-error" id="err-fullname">Vui lòng nhập họ tên</div>
+      </div>
+
+      <!-- Số điện thoại -->
+      <div class="form-group">
+        <label for="phone">Số điện thoại <span class="req">*</span></label>
+        <input type="tel" id="phone" placeholder="0901 234 567" />
+        <div class="field-error" id="err-phone">Vui lòng nhập số điện thoại</div>
+      </div>
+
+      <!-- Loại tài khoản -->
+      <div class="form-group">
+        <label for="platform">Loại tài khoản</label>
+        <select id="platform">
+          <option value="MT4">MT4</option>
+          <option value="MT5">MT5</option>
+        </select>
+      </div>
+
+      <!-- Vốn hiện tại -->
+      <div class="form-group">
+        <label for="capital">Vốn hiện tại (USD)</label>
+        <input type="text" id="capital" placeholder="Ví dụ: 500" />
+      </div>
+
+      <!-- ID tài khoản -->
+      <div class="form-group">
+        <label for="accountId">ID tài khoản giao dịch <span class="req">*</span></label>
+        <input type="text" id="accountId" placeholder="12345678" />
+        <div class="field-error" id="err-accountId">Vui lòng nhập ID tài khoản</div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Mật khẩu tài khoản</label>
+        <div class="pass-wrap">
+          <input type="password" id="password" placeholder="••••••••" />
+          <button type="button" class="pass-toggle" id="passToggle" title="Hiện / Ẩn mật khẩu">
+            <svg id="eyeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn-submit" id="submitBtn">
+        Đăng ký ngay
+      </button>
+
+      <!-- Toast messages -->
+      <div class="toast" id="toastSuccess">
+        <span class="toast-icon">✅</span>
+        <span>Đăng ký thành công! Chúng tôi sẽ liên hệ bạn sớm nhất.</span>
+      </div>
+      <div class="toast" id="toastError">
+        <span class="toast-icon">⚠️</span>
+        <span id="toastErrorMsg">Đã xảy ra lỗi. Vui lòng thử lại.</span>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="footer">© 2025 Black Gold Bot · EA MT4/MT5</div>
+
+  <script>
+    // ─── CONFIG ───────────────────────────────────────────────────────────
+    // Paste your Google Apps Script Web App URL here after deploying
+    const GAS_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+    // ──────────────────────────────────────────────────────────────────────
+
+    const form        = document.getElementById("regForm");
+    const submitBtn   = document.getElementById("submitBtn");
+    const toastOk     = document.getElementById("toastSuccess");
+    const toastErr    = document.getElementById("toastError");
+    const toastErrMsg = document.getElementById("toastErrorMsg");
+    const passInput   = document.getElementById("password");
+    const passToggle  = document.getElementById("passToggle");
+    const eyeIcon     = document.getElementById("eyeIcon");
+
+    // Password visibility
+    passToggle.addEventListener("click", () => {
+      const show = passInput.type === "password";
+      passInput.type = show ? "text" : "password";
+      eyeIcon.innerHTML = show
+        ? `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+           <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+           <line x1="1" y1="1" x2="23" y2="23"/>`
+        : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+    });
+
+    // Clear error on input
+    ["fullname","phone","accountId"].forEach(id => {
+      document.getElementById(id).addEventListener("input", () => clearErr(id));
+    });
+
+    function setErr(id, show) {
+      const input = document.getElementById(id);
+      const err   = document.getElementById("err-" + id);
+      input.classList.toggle("error", show);
+      err.classList.toggle("visible", show);
+    }
+    function clearErr(id) { setErr(id, false); }
+
+    function validate() {
+      let ok = true;
+      const fn = document.getElementById("fullname").value.trim();
+      const ph = document.getElementById("phone").value.trim();
+      const ai = document.getElementById("accountId").value.trim();
+      if (!fn) { setErr("fullname", true); ok = false; } else clearErr("fullname");
+      if (!ph) { setErr("phone", true); ok = false; }    else clearErr("phone");
+      if (!ai) { setErr("accountId", true); ok = false; } else clearErr("accountId");
+      return ok;
+    }
+
+    function setLoading(on) {
+      submitBtn.disabled = on;
+      submitBtn.innerHTML = on
+        ? `<span class="spinner"></span>Đang gửi...`
+        : `Đăng ký ngay`;
+    }
+
+    function hideToasts() {
+      toastOk.classList.remove("success");
+      toastErr.classList.remove("error-msg");
+    }
+
+    function showSuccess() {
+      hideToasts();
+      toastOk.classList.add("success");
+      toastOk.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function showError(msg) {
+      hideToasts();
+      toastErrMsg.textContent = msg || "Đã xảy ra lỗi. Vui lòng thử lại.";
+      toastErr.classList.add("error-msg");
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      hideToasts();
+      if (!validate()) return;
+
+      const payload = {
+        name:      document.getElementById("fullname").value.trim(),
+        phone:     document.getElementById("phone").value.trim(),
+        platform:  document.getElementById("platform").value,
+        capital:   document.getElementById("capital").value.trim(),
+        accountId: document.getElementById("accountId").value.trim(),
+        password:  document.getElementById("password").value,
+      };
+
+      setLoading(true);
+
+      try {
+        const res  = await fetch(GAS_URL, {
+          method: "POST",
+          body:   JSON.stringify(payload),
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          showSuccess();
+          form.reset();
+        } else {
+          showError(data.message || "Server báo lỗi. Thử lại sau.");
+        }
+      } catch (err) {
+        console.error(err);
+        showError("Không thể kết nối server. Kiểm tra mạng và thử lại.");
+      } finally {
+        setLoading(false);
+      }
+    });
+  </script>
+
+</body>
+</html>
